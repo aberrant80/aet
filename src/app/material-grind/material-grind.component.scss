@@ -1,9 +1,31 @@
+%mat-column-shrink {
+  white-space: nowrap;
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 1px;
+}
+
+%mat-column-fill {
+  width: 90%;
+}
+
 table {
   width: 100%;
 }
 
-.mat-column-expand {
-    width: 25px;
+$matetrial-grind-shrink-columns: "name", "source", "quantity", "purpose";
+$matetrial-grind-fill-columns: "type", "purpose";
+
+@each $name in $matetrial-grind-shrink-columns {
+  .mat-column-#{$name} {
+    @extend %mat-column-shrink;
+  }
+}
+
+@each $name in $matetrial-grind-fill-columns {
+  .mat-column-#{$name} {
+    @extend %mat-column-fill;
+  }
 }
 
 th::ng-deep.mat-sort-header-sorted {
@@ -15,15 +37,11 @@ tr.location-row-collapsed {
 }
 
 tr.location-row-expandable:not(.location-row-expanded):hover {
-  background: #C0C0C0;
+  background-color: #c0c0c0;
 }
 
 tr.location-row-expandable:not(.location-row-expanded):active {
-  background: #EFEFEF;
-}
-
-.location-row-expandable td {
-  border-bottom-width: 0;
+  background-color: #dedede;
 }
 
 .inner-table-div {
@@ -38,4 +56,8 @@ tr.location-row-expandable:not(.location-row-expanded):active {
 .inner-table mat-form-field {
   margin-left: 20px;
   width: 100%;
+}
+
+.mat-icon {
+  transform: scale(0.75);
 }

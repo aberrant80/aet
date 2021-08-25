@@ -19,7 +19,7 @@ import { MaterialGrindDrop, MaterialGrindLocation } from './material-grind.model
 })
 export class MaterialGrindComponent implements AfterViewInit {
   displayedColumns = ['expand', 'name', 'type'];
-  innerDisplayedColumns = ['name', 'source', 'quantity', 'purpose'];
+  innerDisplayedColumns = ['remove', 'name', 'source', 'increment', 'quantity', 'decrement', 'purpose'];
 
   dataSource: MatTableDataSource<MaterialGrindLocation>;
   locations: MaterialGrindLocation[] = [];
