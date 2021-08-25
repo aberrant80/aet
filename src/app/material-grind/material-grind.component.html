@@ -1,0 +1,47 @@
+<table mat-table #outerSort="matSort" [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+	<!-- <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+		<th mat-header-cell *matHeaderCellDef mat-sort-header>{{column.toUpperCase()}}</th>
+		<td mat-cell *matCellDef="let location">{{location[column]}}</td>
+	</ng-container> -->
+
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+    <ng-container *ngIf="column !== 'expand'; else action">
+      <th mat-header-cell *matHeaderCellDef>{{column.toUpperCase()}}</th>
+      <td mat-cell *matCellDef="let location">{{location[column]}}</td>
+    </ng-container>
+    <ng-template #action>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let location">
+        <mat-icon *ngIf="location.drops?.data.length">{{expandedLocation === location ? 'expand_less' : 'expand_more'}}</mat-icon>
+      </td>
+    </ng-template>
+  </ng-container>
+
+	<ng-container matColumnDef="expandedDetail">
+		<td mat-cell *matCellDef="let location" [attr.colspan]="displayedColumns.length">
+			<div class="inner-table-div" *ngIf="location.drops?.data.length" [@detailExpand]="location == expandedLocation ? 'expanded' : 'collapsed'">
+				<div class="inner-table mat-elevation-z8" *ngIf="expandedLocation">
+          <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" [(ngModel)]="filterValue">
+          </mat-form-field>
+          <table #innerTables mat-table #innerSort="matSort" [dataSource]="location.drops" matSort>
+            <ng-container matColumnDef="{{innerColumn}}" *ngFor="let innerColumn of innerDisplayedColumns">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>{{innerColumn.toUpperCase()}}</th>
+              <td mat-cell *matCellDef="let drop">{{drop[innerColumn]}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns;"></tr>
+          </table>
+				</div>
+			</div>
+		</td>
+	</ng-container>
+
+	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+	<tr mat-row *matRowDef="let location; columns: displayedColumns;"
+	    [class.location-row-expandable]="location.drops?.data.length"
+	    [class.location-row-expanded]="expandedLocation === location" (click)="toggleRow(location)">
+	</tr>
+	<tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="location-row-collapsed"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

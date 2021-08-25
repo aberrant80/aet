@@ -1,0 +1,41 @@
+table {
+  width: 100%;
+}
+
+.mat-column-expand {
+    width: 25px;
+}
+
+th::ng-deep.mat-sort-header-sorted {
+  color: blue;
+}
+
+tr.location-row-collapsed {
+  height: 0;
+}
+
+tr.location-row-expandable:not(.location-row-expanded):hover {
+  background: #C0C0C0;
+}
+
+tr.location-row-expandable:not(.location-row-expanded):active {
+  background: #EFEFEF;
+}
+
+.location-row-expandable td {
+  border-bottom-width: 0;
+}
+
+.inner-table-div {
+  overflow: hidden;
+  display: flex;
+}
+
+.inner-table {
+  width: 100%;
+}
+
+.inner-table mat-form-field {
+  margin-left: 20px;
+  width: 100%;
+}
